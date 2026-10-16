@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Estudio Interactiva - Radicación de Números Naturales | Colegio Montano</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax Configuration and Script for LaTeX rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady();
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montano: {
+                            blue: '#1269A8',
+                            yellow: '#F7D615',
+                            sage: '#54887D',
+                            lightblue: '#88B5C7',
+                            olive: '#A6B046',
+                            softwhite: '#F2F5E9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d283c;
+            color: #333333;
+        }
+        .whiteboard-frame {
+            border: 12px solid #F7D615;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.1);
+        }
+        .tab-btn.active {
+            background-color: #1269A8;
+            color: #ffffff;
+            border-bottom: 4px solid #F7D615;
+            font-weight: bold;
+        }
+        .tab-btn {
+            background-color: #e2e8f0;
+            color: #54887D;
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover:not(.active) {
+            background-color: #cbd5e1;
+            color: #1269A8;
+        }
+        .solution-container {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .solution-container.open {
+            max-height: 1200px;
+            opacity: 1;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F2F5E9;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #54887D;
+        }
+    </style>
+</head>
+<body class="p-2 sm:p-4 md:p-6 min-h-screen flex items-center justify-center">
+
+    <div id="whiteboard" class="whiteboard-frame w-full max-w-6xl bg-montano-softwhite overflow-hidden flex flex-col my-auto relative">
+        
+        <header class="bg-montano-blue text-white p-4 flex flex-wrap items-center justify-between gap-4 border-b-4 border-montano-yellow shadow-md">
+            <div class="flex items-center gap-4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" 
+                     alt="Colegio Montano Logo" 
+                     class="h-12 w-auto bg-white p-1 rounded-md shadow"
+                     onerror="this.src='https://placehold.co/120x50/1269A8/FFFFFF?text=Colegio+Montano'">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-wide">Pizarra Digital Interactiva</h1>
+                    <p class="text-xs md:text-sm text-montano-lightblue font-medium">Matemáticas | 6.º Grado de Primaria</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="bg-montano-sage text-white text-xs px-3 py-1 rounded-full font-semibold hidden md:inline-block">
+                    Unidad 1: Operaciones e Inversas Avanzadas
+                </span>
+                <button id="fullscreen-btn" onclick="toggleFullscreen()" class="bg-montano-yellow hover:bg-yellow-400 text-montano-blue font-bold px-3 py-2 rounded-lg text-sm flex items-center gap-2 shadow transition-transform transform active:scale-95">
+                    <i class="fa-solid font-bold fa-expand"></i>
+                    <span class="hidden sm:inline">Pantalla Completa</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="bg-montano-sage text-white px-6 py-3 border-b border-gray-300 flex justify-between items-center flex-wrap gap-2">
+            <h2 class="text-lg md:text-xl font-bold flex items-center gap-2">
+                <i class="fa-solid fa-square-root-variable text-montano-yellow"></i> Tema: Radicación de Números Naturales y sus Propiedades
+            </h2>
+            <div class="text-xs bg-montano-softwhite text-montano-sage font-bold px-2 py-1 rounded border border-montano-lightblue">
+                Colegio Montano
+            </div>
+        </div>
+
+        <nav class="flex flex-wrap bg-gray-200 border-b border-gray-300 px-2 pt-2 gap-1 text-xs md:text-sm font-semibold select-none">
+            <button onclick="switchTab('teoria')" id="tab-teoria" class="tab-btn active px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-book-open"></i> 1. Teoría
+            </button>
+            <button onclick="switchTab('ejemplos')" id="tab-ejemplos" class="tab-btn px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb"></i> 2. Ejemplos Resueltos
+            </button>
+            <button onclick="switchTab('ejercicios')" id="tab-ejercicios" class="tab-btn px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-pencil"></i> 3. Ejercicios Prácticos
+            </button>
+            <button onclick="switchTab('reflexion')" id="tab-reflexion" class="tab-btn px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-brain"></i> 4. Reflexión Crítica
+            </button>
+            <button onclick="switchTab('evaluacion')" id="tab-evaluacion" class="tab-btn px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-square-check"></i> 5. Evaluación Formativa
+            </button>
+        </nav>
+
+        <main class="p-4 md:p-6 overflow-y-auto custom-scrollbar flex-1 min-h-[500px] max-h-[calc(85vh-120px)] bg-montano-softwhite">
+
+            <!-- ================= TAB 1: TEORÍA ================= -->
+            <section id="sec-teoria" class="tab-content space-y-6">
+                <div class="bg-white p-5 rounded-xl border-l-8 border-montano-blue shadow-sm">
+                    <h3 class="text-xl font-bold text-montano-blue mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i> ¿Qué es la Radicación de Números Naturales?
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                        La <strong>radicación</strong> es la operación inversa a la potenciación. Su objetivo es encontrar la <strong>base</strong> de una potencia cuando conocemos el resultado final (llamado <strong>radicando</strong>) y el exponente (llamado <strong>índice</strong>).
+                    </p>
+                    <div class="mt-3 p-3 bg-blue-50 border border-montano-lightblue rounded-lg text-center font-bold text-montano-blue text-base md:text-lg">
+                        $\sqrt[n]{a} = b \quad \iff \quad b^n = a$
+                    </div>
+                </div>
+
+                <!-- Elementos de la Radicación -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-montano-lightblue shadow-sm text-center">
+                        <div class="text-montano-blue font-bold text-2xl mb-1">$n$</div>
+                        <h4 class="font-bold text-montano-sage text-sm mb-1">Índice</h4>
+                        <p class="text-xs text-gray-600">Indica a qué potencia hay que elevar la raíz. Si no se escribe, equivale a $2$ (raíz cuadrada).</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-montano-lightblue shadow-sm text-center">
+                        <div class="text-montano-blue font-bold text-2xl mb-1">$\sqrt{\quad}$</div>
+                        <h4 class="font-bold text-montano-sage text-sm mb-1">Signo Radical</h4>
+                        <p class="text-xs text-gray-600">Es el símbolo característico que representa la operación de radicación.</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-montano-lightblue shadow-sm text-center">
+                        <div class="text-montano-blue font-bold text-2xl mb-1">$a$</div>
+                        <h4 class="font-bold text-montano-sage text-sm mb-1">Radicando</h4>
+                        <p class="text-xs text-gray-600">Es el número natural ubicado dentro del radical al que se le extrae la raíz.</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-montano-lightblue shadow-sm text-center">
+                        <div class="text-montano-blue font-bold text-2xl mb-1">$b$</div>
+                        <h4 class="font-bold text-montano-sage text-sm mb-1">Raíz</h4>
+                        <p class="text-xs text-gray-600">Es el resultado final que, elevado al índice $n$, da el radicando $a$.</p>
+                    </div>
+                </div>
+
+                <!-- Propiedades de la Radicación -->
+                <div class="bg-white p-5 rounded-xl border-l-8 border-montano-yellow shadow-sm">
+                    <h4 class="text-xl font-bold text-montano-blue mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-montano-yellow"></i> Propiedades Fundamentales en $\mathbb{N}$
+                    </h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs md:text-sm">
+                        <!-- Prop 1 -->
+                        <div class="p-3.5 bg-blue-50 rounded-lg border border-blue-200">
+                            <h5 class="font-bold text-montano-blue mb-1">1. Raíz de un Producto</h5>
+                            <p class="text-gray-600 mb-2">La raíz de un producto es igual al producto de las raíces de cada factor.</p>
+                            <div class="bg-white p-1.5 rounded text-center font-semibold text-montano-blue border">$\sqrt[n]{a \times b} = \sqrt[n]{a} \times \sqrt[n]{b}$</div>
+                        </div>
+
+                        <!-- Prop 2 -->
+                        <div class="p-3.5 bg-blue-50 rounded-lg border border-blue-200">
+                            <h5 class="font-bold text-montano-blue mb-1">2. Raíz de un Cociente</h5>
+                            <p class="text-gray-600 mb-2">La raíz de un cociente es el cociente de las raíces del dividendo y divisor ($b \neq 0$).</p>
+                            <div class="bg-white p-1.5 rounded text-center font-semibold text-montano-blue border">$\sqrt[n]{a \div b} = \sqrt[n]{a} \div \sqrt[n]{b}$</div>
+                        </div>
+
+                        <!-- Prop 3 -->
+                        <div class="p-3.5 bg-blue-50 rounded-lg border border-blue-200">
+                            <h5 class="font-bold text-montano-blue mb-1">3. Raíz de una Raíz</h5>
+                            <p class="text-gray-600 mb-2">Para hallar la raíz de una raíz, se conservan el radicando y se multiplican los índices.</p>
+                            <div class="bg-white p-1.5 rounded text-center font-semibold text-montano-blue border">$\sqrt[m]{\sqrt[n]{a}} = \sqrt[m \times n]{a}$</div>
+                        </div>
+
+                        <!-- Prop 4 -->
+                        <div class="p-3.5 bg-emerald-50 rounded-lg border border-emerald-200">
+                            <h5 class="font-bold text-emerald-800 mb-1">4. Raíz de una Potencia</h5>
+                            <p class="text-gray-600 mb-2">Se simplifica dividiendo el exponente del radicando entre el índice de la raíz.</p>
+                            <div class="bg-white p-1.5 rounded text-center font-semibold text-emerald-800 border">$\sqrt[n]{a^m} = a^{m \div n}$</div>
+                        </div>
+
+                        <!-- Prop 5 -->
+                        <div class="p-3.5 bg-emerald-50 rounded-lg border border-emerald-200">
+                            <h5 class="font-bold text-emerald-800 mb-1">5. Raíz con Índice y Exponentes Iguales</h5>
+                            <p class="text-gray-600 mb-2">Si el índice es igual al exponente del radicando, la raíz es igual a la base.</p>
+                            <div class="bg-white p-1.5 rounded text-center font-semibold text-emerald-800 border">$\sqrt[n]{a^n} = a$</div>
+                        </div>
+
+                        <!-- Prop 6 -->
+                        <div class="p-3.5 bg-amber-50 rounded-lg border border-amber-200">
+                            <h5 class="font-bold text-amber-900 mb-1">6. Raíz de 1 y de 0</h5>
+                            <p class="text-gray-600 mb-2">La raíz con cualquier índice $n$ de 1 es siempre 1; la raíz de 0 es siempre 0.</p>
+                            <div class="bg-white p-1.5 rounded text-center font-semibold text-amber-900 border">$\sqrt[n]{1} = 1 \qquad \sqrt[n]{0} = 0$</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advertencia Importante -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-montano-lightblue shadow-sm">
+                        <h4 class="font-bold text-montano-blue mb-2 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-shapes text-montano-yellow"></i> Relación Geométrica Cuadrada y Cúbica
+                        </h4>
+                        <p class="text-xs md:text-sm text-gray-700">
+                            • La <strong>raíz cuadrada</strong> ($\sqrt{A}$) calcula la longitud del lado de un <strong>cuadrado</strong> dada su área $A$.<br>
+                            • La <strong>raíz cúbica</strong> ($\sqrt[3]{V}$) calcula la longitud de la arista de un <strong>cubo</strong> dado su volumen $V$.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-red-200 shadow-sm">
+                        <h4 class="font-bold text-red-600 mb-2 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Error Frecuente a Evitar
+                        </h4>
+                        <p class="text-xs md:text-sm text-gray-700">
+                            <strong>¡La radicación NO es distributiva respecto a la suma o resta!</strong>
+                        </p>
+                        <div class="mt-2 p-2 bg-red-50 rounded text-xs text-red-800 font-semibold border border-red-200">
+                            ❌ $\sqrt{9 + 16} \neq \sqrt{9} + \sqrt{16} \implies \sqrt{25} = 5 \neq 3 + 4 = 7$ (Incorrecto)<br>
+                            ✔️ $\sqrt{9 + 16} = \sqrt{25} = 5$ (Correcto: primero se suma, luego se extrae raíz).
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 2: EJEMPLOS RESUELTOS ================= -->
+            <section id="sec-ejemplos" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-montano-blue">
+                    <p class="text-sm text-gray-600">Revisa detalladamente los siguientes <strong>15 ejemplos resueltos paso a paso</strong>, agrupados por su nivel de dificultad.</p>
+                </div>
+
+                <!-- NIVEL BÁSICO -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-olive px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-seedling"></i> Nivel Básico (1 a 5)
+                    </h3>
+
+                    <!-- Ex 1 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 1: Cálculo Directo de Raíz Cuadrada Exacta</div>
+                        <p class="text-sm text-gray-700 mt-1">Calcula el valor numérico de $\sqrt{64}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Identificamos que el índice es $2$ (raíz cuadrada implícita) y el radicando es $64$.</p>
+                            <p><strong>Paso 2:</strong> Buscamos un número natural $b$ que al elevarse al cuadrado dé $64$ ($b^2 = 64$).</p>
+                            <p><strong>Paso 3:</strong> Evaluamos: $8 \times 8 = 8^2 = 64$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $\sqrt{64} = 8$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 2 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 2: Cálculo Directo de Raíz Cúbica</div>
+                        <p class="text-sm text-gray-700 mt-1">Halla el resultado de $\sqrt[3]{125}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> El índice es $3$, por lo que buscamos un número multiplicado por sí mismo 3 veces.</p>
+                            <p><strong>Paso 2:</strong> Probamos factores: $5 \times 5 \times 5 = 125$.</p>
+                            <p><strong>Paso 3:</strong> Como $5^3 = 125$, obtenemos la raíz.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $\sqrt[3]{125} = 5$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 3 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 3: Raíz de un Producto</div>
+                        <p class="text-sm text-gray-700 mt-1">Aplica la propiedad distributiva de la radicación para calcular $\sqrt{36 \times 49}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Separamos en raíces independientes: $\sqrt{36} \times \sqrt{49}$.</p>
+                            <p><strong>Paso 2:</strong> Calculamos cada raíz: $\sqrt{36} = 6$ y $\sqrt{49} = 7$.</p>
+                            <p><strong>Paso 3:</strong> Multiplicamos los resultados: $6 \times 7 = 42$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $\sqrt{36 \times 49} = 42$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 4 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 4: Raíz de un Cociente</div>
+                        <p class="text-sm text-gray-700 mt-1">Resuelve $\sqrt{100 \div 25}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Método A:</strong> Distribuimos $\sqrt{100} \div \sqrt{25} = 10 \div 5 = 2$.</p>
+                            <p><strong>Método B:</strong> Dividimos primero $100 \div 25 = 4 \implies \sqrt{4} = 2$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $2$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 5 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 5: Raíz Cuadrada de Cuadrados Perfectos de Base 10</div>
+                        <p class="text-sm text-gray-700 mt-1">Calcula $\sqrt{10,000}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Contamos la cantidad de ceros en el radicando: $4$ ceros.</p>
+                            <p><strong>Paso 2:</strong> Al extraer raíz cuadrada, el resultado tendrá la mitad de ceros ($4 \div 2 = 2$ ceros).</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $\sqrt{10,000} = 100$ (ya que $100^2 = 10,000$).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIVEL INTERMEDIO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-sage px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-tree"></i> Nivel Intermedio (6 a 10)
+                    </h3>
+
+                    <!-- Ex 6 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 6: Raíz de una Raíz</div>
+                        <p class="text-sm text-gray-700 mt-1">Simplifica a un solo radical la expresión $\sqrt{\sqrt{81}}$ y halla su valor.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Aplicamos $\sqrt[m]{\sqrt[n]{a}} = \sqrt[m \times n]{a}$. Como ambas son cuadradas ($2 \times 2 = 4$), resulta $\sqrt[4]{81}$.</p>
+                            <p><strong>Paso 2:</strong> Buscamos $b$ tal que $b^4 = 81 \implies 3 \times 3 \times 3 \times 3 = 81$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $\sqrt{\sqrt{81}} = \sqrt[4]{81} = 3$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 7 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 7: Raíz de una Potencia</div>
+                        <p class="text-sm text-gray-700 mt-1">Calcula el valor de $\sqrt[3]{2^9}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Aplicamos la regla $\sqrt[n]{a^m} = a^{m \div n}$.</p>
+                            <p><strong>Paso 2:</strong> Dividimos el exponente entre el índice: $9 \div 3 = 3$.</p>
+                            <p><strong>Paso 3:</strong> Obtenemos $2^3 = 8$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $\sqrt[3]{2^9} = 8$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 8 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 8: Problema Geométrico de Área</div>
+                        <p class="text-sm text-gray-700 mt-1">El patio de juegos del Colegio Montano es de forma cuadrada y tiene un área total de $225\text{ m}^2$. ¿Cuánto mide cada uno de sus lados?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Fórmula del área del cuadrado:</strong> $A = l^2 \implies l = \sqrt{A}$.</p>
+                            <p><strong>Cálculo:</strong> $l = \sqrt{225}$. Buscamos $15 \times 15 = 225$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: Cada lado mide $15\text{ metros}$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 9 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 9: Expresión con Operaciones Combinadas</div>
+                        <p class="text-sm text-gray-700 mt-1">Resuelve la operación: $\sqrt{100 - 36} + \sqrt[3]{64}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1 (Dentro del radical):</strong> Restamos $100 - 36 = 64$. Nos queda $\sqrt{64}$.</p>
+                            <p><strong>Paso 2 (Extraer raíces):</strong> $\sqrt{64} = 8$ y $\sqrt[3]{64} = 4$.</p>
+                            <p><strong>Paso 3 (Sumar):</strong> $8 + 4 = 12$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $12$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 10 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 10: Descomposición en Factores Primos para Extraer Raíz</div>
+                        <p class="text-sm text-gray-700 mt-1">Calcula $\sqrt{324}$ mediante descomposición en factores primos.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Descomponemos $324 = 2^2 \times 3^4$.</p>
+                            <p><strong>Paso 2:</strong> Aplicamos raíz: $\sqrt{2^2 \times 3^4} = \sqrt{2^2} \times \sqrt{3^4}$.</p>
+                            <p><strong>Paso 3:</strong> Dividimos exponentes entre $2$: $2^{2\div 2} \times 3^{4\div 2} = 2^1 \times 3^2 = 2 \times 9 = 18$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $\sqrt{324} = 18$.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIVEL AVANZADO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-blue px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-mountain"></i> Nivel Avanzado (11 a 15)
+                    </h3>
+
+                    <!-- Ex 11 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 11: Simplificación con Propiedades Combinadas</div>
+                        <p class="text-sm text-gray-700 mt-1">Simplifica la expresión $\frac{\sqrt{144 \times 16}}{\sqrt[3]{8^2}}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Numerador:</strong> $\sqrt{144} \times \sqrt{16} = 12 \times 4 = 48$.</p>
+                            <p><strong>Denominador:</strong> $\sqrt[3]{(2^3)^2} = \sqrt[3]{2^6} = 2^{6 \div 3} = 2^2 = 4$.</p>
+                            <p><strong>División final:</strong> $48 \div 4 = 12$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $12$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 12 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 12: Ecuaciones con Radicales</div>
+                        <p class="text-sm text-gray-700 mt-1">Encuentra el valor de $x$ en la ecuación: $\sqrt{x + 11} = 6$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Elevamos ambos lados al cuadrado para eliminar la raíz: $(\sqrt{x+11})^2 = 6^2$.</p>
+                            <p><strong>Paso 2:</strong> $x + 11 = 36$.</p>
+                            <p><strong>Paso 3:</strong> Despejamos $x$: $x = 36 - 11 = 25$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $x = 25$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 13 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 13: Problema de Volumen Cúbico</div>
+                        <p class="text-sm text-gray-700 mt-1">Un tanque de reserva cúbico de agua en el Colegio Montano almacena $512\text{ m}^3$ de agua. Si se desea colocar una cinta de refuerzo en los 4 bordes de la base superior, ¿cuántos metros de cinta se necesitan?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1 (Calcular arista):</strong> $a = \sqrt[3]{V} = \sqrt[3]{512} = 8\text{ metros}$ (ya que $8^3 = 512$).</p>
+                            <p><strong>Paso 2 (Perímetro de la base):</strong> $P = 4 \times a = 4 \times 8 = 32\text{ metros}$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: Se necesitan 32 metros de cinta.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 14 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 14: Radical Anidado Complejo</div>
+                        <p class="text-sm text-gray-700 mt-1">Resuelve de adentro hacia afuera: $\sqrt{21 + \sqrt{13 + \sqrt{7 + \sqrt{4}}}}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Nivel 1:</strong> $\sqrt{4} = 2$. Expresión queda $\sqrt{7 + 2} = \sqrt{9}$.</p>
+                            <p><strong>Nivel 2:</strong> $\sqrt{9} = 3$. Expresión queda $\sqrt{13 + 3} = \sqrt{16}$.</p>
+                            <p><strong>Nivel 3:</strong> $\sqrt{16} = 4$. Expresión queda $\sqrt{21 + 4} = \sqrt{25}$.</p>
+                            <p><strong>Nivel 4:</strong> $\sqrt{25} = 5$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: $5$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 15 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 15: Estimación de Raíz Entera (Raíz Inexacta)</div>
+                        <p class="text-sm text-gray-700 mt-1">Encuentra la raíz entera y el residuo de $\sqrt{75}$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Buscamos cuadrados perfectos cercanos a $75$: $8^2 = 64$ y $9^2 = 81$.</p>
+                            <p><strong>Paso 2:</strong> Como $64 < 75 < 81$, la raíz entera por defecto es $8$.</p>
+                            <p><strong>Paso 3 (Residuo):</strong> $75 - 8^2 = 75 - 64 = 11$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: Raíz entera = $8$, Residuo = $11$ ($\sqrt{75} \approx 8.66$).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 3: EJERCICIOS PRÁCTICOS ================= -->
+            <section id="sec-ejercicios" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-montano-blue flex justify-between items-center flex-wrap gap-2">
+                    <p class="text-sm text-gray-600">Resuelve cada ejercicio en tu cuaderno y haz clic en <strong>"Mostrar solución"</strong> para revisar tus procesos.</p>
+                    <span class="text-xs font-bold text-montano-blue bg-blue-100 px-3 py-1 rounded-full">15 Ejercicios de Práctica</span>
+                </div>
+
+                <!-- NIVEL BÁSICO -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-olive px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-seedling"></i> Ejercicios Nivel Básico
+                    </h3>
+
+                    <!-- Ej 1 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 1</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Calcula la raíz cuadrada de $121$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e1')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e1">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e1" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Buscamos $b$ tal que $b^2 = 121 \implies 11 \times 11 = 121$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $\sqrt{121} = 11$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 2 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 2</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Halla el valor de $\sqrt[3]{216}$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e2')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e2">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e2" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Probamos números al cubo: $6 \times 6 \times 6 = 216$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $\sqrt[3]{216} = 6$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 3 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 3</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Aplica la raíz de un producto para resolver $\sqrt{25 \times 81}$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e3')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e3">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e3" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $\sqrt{25} \times \sqrt{81} = 5 \times 9 = 45$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $45$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 4 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 4</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Evalúa la suma $\sqrt{16} + \sqrt{9} + \sqrt[4]{16}$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e4')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e4">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e4" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $\sqrt{16} = 4$, $\sqrt{9} = 3$, $\sqrt[4]{16} = 2$.<br>
+                                $4 + 3 + 2 = 9$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $9$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 5 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 5</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Un terreno cuadrado para la huerta escolar tiene $400\text{ m}^2$ de superficie. ¿Cuánto mide su perímetro?</p>
+                        
+                        <button onclick="toggleSolution('sol-e5')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e5">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e5" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Lado: $l = \sqrt{400} = 20\text{ m}$.<br>
+                                Perímetro: $P = 4 \times 20 = 80\text{ m}$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: El perímetro mide $80\text{ m}$.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIVEL INTERMEDIO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-sage px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-tree"></i> Ejercicios Nivel Intermedio
+                    </h3>
+
+                    <!-- Ej 6 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 6</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Aplica las propiedades para reducir a un solo número: $\sqrt{\sqrt{256}}$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e6')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e6">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e6" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Método 1: $\sqrt{256} = 16 \implies \sqrt{16} = 4$.<br>
+                                Método 2: $\sqrt[4]{256} = 4$ ($4^4 = 256$).<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $4$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 7 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 7</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Simplifica $\frac{\sqrt{144}}{\sqrt{9}} + \sqrt[3]{1,000}$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e7')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e7">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e7" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $\frac{12}{3} + 10 = 4 + 10 = 14$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $14$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 8 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 8</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Un depósito cúbico contiene $1,000\text{ litros}$ de agua ($1\text{ m}^3 = 1,000\text{ L}$). ¿Cuánto mide la arista del depósito en metros?</p>
+                        
+                        <button onclick="toggleSolution('sol-e8')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e8">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e8" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Volumen = $1\text{ m}^3$.<br>
+                                Arista = $\sqrt[3]{1} = 1\text{ metro}$ (o en cm: $\sqrt[3]{1,000,000\text{ cm}^3} = 100\text{ cm}$).<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $1\text{ metro}$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 9 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 9</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Calcula $\sqrt[5]{32^2}$ aplicando raíz de una potencia.</p>
+                        
+                        <button onclick="toggleSolution('sol-e9')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e9">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e9" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Convertimos $32 = 2^5 \implies \sqrt[5]{(2^5)^2} = \sqrt[5]{2^{10}} = 2^{10 \div 5} = 2^2 = 4$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $4$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 10 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 10</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">En un mosaico cuadrado formado por 169 azulejos iguales, ¿cuántos azulejos hay en cada fila?</p>
+                        
+                        <button onclick="toggleSolution('sol-e10')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e10">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e10" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $\sqrt{169} = 13$ (puesto que $13 \times 13 = 169$).<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $13$ azulejos por fila.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIVEL AVANZADO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-blue px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-mountain"></i> Ejercicios Nivel Avanzado
+                    </h3>
+
+                    <!-- Ej 11 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 11</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Halla el valor de $y$ en la ecuación $\sqrt[3]{y - 7} = 3$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e11')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e11">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e11" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Elevamos al cubo ambos miembros: $y - 7 = 3^3 \implies y - 7 = 27 \implies y = 34$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $y = 34$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 12 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 12</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Simplifica $\sqrt{\frac{3^6 \times 2^4}{3^2}}$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e12')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e12">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e12" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Simplificamos bases iguales dentro: $3^{6-2} \times 2^4 = 3^4 \times 2^4$.<br>
+                                Extraemos raíz cuadrada: $3^{4\div 2} \times 2^{4\div 2} = 3^2 \times 2^2 = 9 \times 4 = 36$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: $36$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 13 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 13</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Calcula la raíz entera por defecto y el residuo de $\sqrt{110}$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e13')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e13">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e13" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $10^2 = 100 < 110 < 121 = 11^2$.<br>
+                                Raíz entera = $10$.<br>
+                                Residuo = $110 - 100 = 10$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Raíz = $10$, Residuo = $10$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 14 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 14</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Resuelve la cadena de radicales: $\sqrt{50 + \sqrt{18 + \sqrt{49}}}$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e14')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e14">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e14" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $\sqrt{49} = 7 \implies \sqrt{18 + 7} = \sqrt{25} = 5 \implies \sqrt{50 + 5} = \sqrt{55}$ (Inexacta $\approx 7.41$).<br>
+                                <em>Si fuera $\sqrt{50 + 14} = \sqrt{64} = 8$.</em> Para $\sqrt{50 + 5}$: Raíz entera = $7$, Residuo = $6$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Raíz entera $7$ (residuo $6$).</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 15 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 15</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Un terreno cúbico tiene $729\text{ m}^3$ de volumen. Se quiere vallar todo el contorno de su cara frontal. ¿Cuántos metros de valla se necesitan?</p>
+                        
+                        <button onclick="toggleSolution('sol-e15')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e15">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e15" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Arista = $\sqrt[3]{729} = 9\text{ m}$ (puesto que $9^3 = 729$).<br>
+                                Perímetro de la cara frontal (cuadrada): $4 \times 9 = 36\text{ m}$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Se necesitan $36\text{ metros}$ de valla.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 4: REFLEXIÓN CRÍTICA ================= -->
+            <section id="sec-reflexion" class="tab-content hidden space-y-6">
+                <div class="bg-white p-5 rounded-xl border-l-8 border-montano-blue shadow-sm">
+                    <h3 class="text-xl font-bold text-montano-blue mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-brain text-montano-yellow"></i> Pensamiento Lógico y Metacognición
+                    </h3>
+                    <p class="text-gray-700 text-sm">
+                        Analiza los siguientes cuestionamientos sobre la radicación para fortalecer tu razonamiento abstracto y comprensión de inversas.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Q1 -->
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-montano-sage font-bold text-base mb-2">
+                                <span class="bg-montano-sage text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">1</span>
+                                ¿Por qué la raíz cuadrada de un número natural no siempre es un número natural?
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Si calculas $\sqrt{5}$, no existe ningún entero $n \in \mathbb{N}$ tal que $n^2 = 5$. ¿Qué tipo de números resultan de las raíces no exactas?
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 bg-yellow-50 rounded-lg text-xs text-amber-900 border border-yellow-200">
+                            <strong>Análisis:</strong> El conjunto $\mathbb{N}$ no es cerrado bajo la radicación. Las raíces no exactas forman números irracionales (con decimales infinitos no periódicos).
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-montano-sage font-bold text-base mb-2">
+                                <span class="bg-montano-sage text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</span>
+                                ¿Por qué $\sqrt{a + b} \neq \sqrt{a} + \sqrt{b}$?
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Comprueba con un ejemplo geométrico: Si unides dos rectángulos de áreas $9$ y $16$ para formar un área total de $25$, ¿el lado del nuevo cuadrado es igual a la suma de los lados de los cuadrados anteriores?
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg text-xs text-blue-900 border border-blue-200">
+                            <strong>Análisis:</strong> El lado del cuadrado de área $25$ es $5$. Pero $3 + 4 = 7$. Como $5 \neq 7$, la radicación **NO es distributiva con respecto a la suma**.
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-montano-sage font-bold text-base mb-2">
+                                <span class="bg-montano-sage text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</span>
+                                Aplicación de las Raíces Cúbicas en la Arquitectura
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Si un arquitecto necesita diseñar un tanque de agua cúbico para un edificio en Guatemala que contenga un volumen específico de litros, ¿por qué la raíz cúbica es la única herramienta matemática que le permite determinar las dimensiones físicas exactas del tanque?
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 bg-emerald-50 rounded-lg text-xs text-emerald-900 border border-emerald-200">
+                            <strong>Análisis:</strong> Dado que un cubo tiene 3 dimensiones iguales (largo, ancho, alto), despejar la longitud $l$ a partir del volumen $V = l^3$ exige aplicar la operación inversa: $l = \sqrt[3]{V}$.
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-montano-sage font-bold text-base mb-2">
+                                <span class="bg-montano-sage text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">4</span>
+                                Crecimiento Inverso: Potenciación vs. Radicación
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Mientras que elevar un número natural $>1$ a una potencia lo hace crecer muy rápidamente, ¿qué efecto produce la radicación sobre un número grande?
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 bg-purple-50 rounded-lg text-xs text-purple-900 border border-purple-200">
+                            <strong>Análisis:</strong> La radicación reduce drásticamente la escala del número, devolviéndolo a su base generadora original.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 5: EVALUACIÓN FORMATIVA ================= -->
+            <section id="sec-evaluacion" class="tab-content hidden space-y-6">
+                <div class="bg-white p-5 rounded-xl border-l-8 border-montano-yellow shadow-sm">
+                    <h3 class="text-xl font-bold text-montano-blue mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check text-montano-yellow"></i> Evaluación Formativa Integradora
+                    </h3>
+                    <p class="text-gray-700 text-sm">
+                        Resuelve los siguientes ejercicios de comprobación para medir tu aprendizaje sobre radicación.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Pregunta 1 -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-montano-sage uppercase tracking-wider">Pregunta 1 - Selección Teórica</span>
+                        <h4 class="font-bold text-gray-800 text-base mt-1">¿Cuál es el resultado simplificado de $\frac{\sqrt{36 \times 64}}{\sqrt[3]{64}}$?</h4>
+                        <ol class="list-alpha list-inside text-sm text-gray-700 mt-2 space-y-1">
+                            <li>a) $12$</li>
+                            <li>b) $8$</li>
+                            <li>c) $6$</li>
+                            <li>d) $16$</li>
+                        </ol>
+
+                        <button onclick="toggleSolution('sol-ev1')" class="mt-4 text-xs bg-montano-blue text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical"></i> <span id="lbl-sol-ev1">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-ev1" class="solution-container">
+                            <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-xs md:text-sm text-gray-800">
+                                <strong class="text-emerald-800">Respuesta Correcta: a) $12$.</strong><br>
+                                <em>Procedimiento:</em><br>
+                                Numerador: $\sqrt{36} \times \sqrt{64} = 6 \times 8 = 48$.<br>
+                                Denominador: $\sqrt[3]{64} = 4$.<br>
+                                Cociente: $48 \div 4 = 12$.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-montano-sage uppercase tracking-wider">Pregunta 2 - Problema Geométrico Escolar</span>
+                        <h4 class="font-bold text-gray-800 text-base mt-1">
+                            En la clase de arte del Colegio Montano, los alumnos van a construir un mural cuadrado usando azulejos de $1\text{ cm}^2$. Si disponen de 576 azulejos y los usan todos, ¿cuántos azulejos tendrá cada lado del mural?
+                        </h4>
+
+                        <button onclick="toggleSolution('sol-ev2')" class="mt-4 text-xs bg-montano-blue text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical"></i> <span id="lbl-sol-ev2">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-ev2" class="solution-container">
+                            <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-xs md:text-sm text-gray-800">
+                                <strong class="text-emerald-800">Respuesta: Cada lado tendrá 24 azulejos.</strong><br>
+                                <em>Procedimiento:</em><br>
+                                $l = \sqrt{576}$. Descomponiendo $576 = 2^6 \times 3^2$.<br>
+                                $\sqrt{2^6 \times 3^2} = 2^3 \times 3^1 = 8 \times 3 = 24$.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-montano-sage uppercase tracking-wider">Pregunta 3 - Propiedades de la Radicación</span>
+                        <h4 class="font-bold text-gray-800 text-base mt-1">
+                            Aplica la propiedad de "Raíz de una Raíz" para calcular $\sqrt{\sqrt{625}}$.
+                        </h4>
+
+                        <button onclick="toggleSolution('sol-ev3')" class="mt-4 text-xs bg-montano-blue text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical"></i> <span id="lbl-sol-ev3">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-ev3" class="solution-container">
+                            <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-xs md:text-sm text-gray-800">
+                                <strong class="text-emerald-800">Respuesta: $5$.</strong><br>
+                                <em>Procedimiento:</em><br>
+                                Multiplicamos los índices $2 \times 2 = 4 \implies \sqrt[4]{625}$.<br>
+                                Buscamos factor $5^4 = 625 \implies \sqrt[4]{625} = 5$.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 4 -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-montano-sage uppercase tracking-wider">Pregunta 4 - Ecuaciones con Radicales</span>
+                        <h4 class="font-bold text-gray-800 text-base mt-1">
+                            Determina el valor de la incógnita $k$ en la igualdad $\sqrt{k - 5} = 9$.
+                        </h4>
+
+                        <button onclick="toggleSolution('sol-ev4')" class="mt-4 text-xs bg-montano-blue text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical"></i> <span id="lbl-sol-ev4">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-ev4" class="solution-container">
+                            <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-xs md:text-sm text-gray-800">
+                                <strong class="text-emerald-800">Respuesta: $k = 86$.</strong><br>
+                                <em>Procedimiento:</em><br>
+                                Elevamos al cuadrado: $(\sqrt{k-5})^2 = 9^2 \implies k - 5 = 81 \implies k = 81 + 5 = 86$.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-montano-blue text-white p-3 text-center text-xs border-t-2 border-montano-yellow flex flex-wrap justify-between items-center px-6 gap-2">
+            <div>
+                <strong>Colegio Montano</strong> &copy; 2026 - Material Educativo Interactivo
+            </div>
+            <div class="text-montano-lightblue">
+                Diseñado para Canvas Education
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        /* Function to switch active tabs */
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            const targetContent = document.getElementById('sec-' + tabId);
+            const targetBtn = document.getElementById('tab-' + tabId);
+
+            if (targetContent && targetBtn) {
+                targetContent.classList.remove('hidden');
+                targetBtn.classList.add('active');
+            }
+
+            // Re-render MathJax formulas when switching tabs
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise();
+            }
+        }
+
+        /* Function to toggle solution visibility with MathJax refresh */
+        function toggleSolution(solId) {
+            const container = document.getElementById(solId);
+            const label = document.getElementById('lbl-' + solId);
+
+            if (container) {
+                container.classList.toggle('open');
+                if (label) {
+                    if (container.classList.contains('open')) {
+                        label.textContent = 'Ocultar solución';
+                    } else {
+                        label.textContent = 'Mostrar solución';
+                    }
+                }
+                
+                // Re-render MathJax inside newly opened solution container
+                if (window.MathJax && container.classList.contains('open')) {
+                    window.MathJax.typesetPromise([container]).catch(function (err) {
+                        console.log('MathJax typeset error: ' + err.message);
+                    });
+                }
+            }
+        }
+
+        /* Fullscreen API Toggle Function */
+        function toggleFullscreen() {
+            const elem = document.getElementById('whiteboard');
+
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
